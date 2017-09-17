@@ -28,7 +28,13 @@ post '/outinfo' do
   	info << params[:zipcode]
   	info << params[:phonenumber]
   	putintable(info)
-  	datafromtable = getputoftable()
-  	p "#{datafromtable} loooooook here"
-  	# redirect "/review"
+  	#datafromtable = getputoftable()
+  	#p "#{datafromtable} loooooook here"
+  	redirect "/review"
 end
+
+get '/review' do 
+	datafromtable = getputoftable()
+
+	erb :review, locals:{datafromtable:datafromtable} 
+end	
