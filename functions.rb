@@ -41,14 +41,25 @@ check = db.exec("SELECT * FROM phonebook WHERE phonenumber = '#{arr[-1]}'")
 
 end
 
-def getputoftable
+def getputoftable()
 
-db_params = {
-	host: ENV['host'],
-	port: ENV['port'],
-	dbname: ENV['dbname'],
-	user: ENV['user'],
-	password: ENV['password']
-}
+	db_params = {
+		host: ENV['host'],
+		port: ENV['port'],
+		dbname: ENV['dbname'],
+		user: ENV['user'],
+		password: ENV['password']
+	}
 
-db = PG::Connection.new(db_params)	
+	db = PG::Connection.new(db_params)
+
+	data = [] 
+
+	db.exec( "SELECT * FROM phonebook" ) do |result|
+	      result.each do |row|
+	          data << row.values
+	        end
+	        p "#{data} data is here"
+	    end
+	data    
+end

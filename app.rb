@@ -28,6 +28,7 @@ post '/outinfo' do
   	info << params[:zipcode]
   	info << params[:phonenumber]
   	putintable(info)
-  	p "#{info} loooooook here"
+  	datafromtable = getputoftable()
+  	p "#{datafromtable} loooooook here"
   	# redirect "/review"
 end
