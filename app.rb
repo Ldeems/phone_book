@@ -37,4 +37,18 @@ get '/review' do
 	datafromtable = getputoftable()
 
 	erb :review, locals:{datafromtable:datafromtable} 
+end
+
+post '/search' do
+  	sphonenumber = params[:sphonenumber]
+  	p "#{sphonenumber} first print!!!!!!!!"
+  	redirect "/sres?sphonenumber=" + sphonenumber
+end	
+
+get '/sres' do
+ 	sphonenumber = params[:sphonenumber]
+
+
+ 	p "#{sphonenumber}"
+ 	# erb :sres, locals:{}
 end	
