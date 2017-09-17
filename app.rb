@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'pg'
+require_relative 'functions.rb'
 enable :sessions
 load './local_env.rb' if File.exist?('./local_env.rb')
 
@@ -26,6 +27,7 @@ post '/outinfo' do
   	info << params[:state]
   	info << params[:zipcode]
   	info << params[:phonenumber]
+  	putintable(info)
   	p "#{info} loooooook here"
   	# redirect "/review"
 end
