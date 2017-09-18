@@ -49,6 +49,6 @@ get '/sres' do
  	sphonenumber = params[:sphonenumber]
  	found = searchbypphonenum(sphonenumber)
 
- 	p "#{found}"
- 	# erb :sres, locals:{}
+ 	#p "#{found}"
+ 	erb :sres, locals:{found:found}
 end	
