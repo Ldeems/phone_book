@@ -79,7 +79,7 @@ answer = ""
 check = db.exec("SELECT * FROM phonebook WHERE phonenumber = '#{num}'")
 
     if check.num_tuples.zero? == false
-        answer = "we have that number"
+        answer = "we have that number #{check.values}"
     else
         answer = "seems we do not have that number"
         
