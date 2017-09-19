@@ -1,4 +1,6 @@
-<%=found%>
+<%found.each do |x|%>
+	<%x.each do |a|%>
+		<%=a%><br>
 
 <br><br>
 <br><br>
@@ -20,7 +22,7 @@ if you would like to update this info do so here
 	<input type="text" name="new[]"  placeholder="state" required><br>
 	<input type="text" name="new[]"  placeholder="zip code" required><br>
 	<input type="text" name="new[]"  placeholder="phone number" required><br>
-	
+
 	<input type="submit" name="enter">
 </form>
 <br><br>

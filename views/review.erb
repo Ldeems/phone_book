@@ -1,6 +1,9 @@
 Thank You, Your info has been added to our database.
 <br><br>
 
-<%datafromtable.each do |sets|%>
-	<%=sets%><br>
+<%datafromtable.each do |x|%>
+	<br><br><br>
+	<%x.each do |a|%>
+		<%=a%><br>
+	<%end%>
 <%end%>	
