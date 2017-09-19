@@ -2,7 +2,7 @@ require 'sinatra'
 require 'pg'
 require_relative 'functions.rb'
 enable :sessions
-load './local_env.rb' if File.exist?('./local_env.rb')
+load './mycreds.rb' if File.exist?('./mycreds.rb')
 
 db_params = {
 	host: ENV['host'],
@@ -46,9 +46,38 @@ post '/search' do
 end	
 
 get '/sres' do
- 	sphonenumber = params[:sphonenumber]
- 	found = searchbypphonenum(sphonenumber)
+ 	session[:sphonenumber] = params[:sphonenumber]
+ 	session[:found] = searchbypphonenum(session[:sphonenumber])
 
  	#p "#{found}"
- 	erb :sres, locals:{found:found}
+ 	erb :sres, locals:{found:session[:found]}
+end	
+
+post '/goback' do
+  redirect '/'
+end
+
+post '/update' do
+	update = params[:new]
+	#old = session[:sphonenumber]
+	ran = updatefunction(session[:sphonenumber],update)
+	
+	#p "#{ran}, and here is updated #{datafromtable}"
+	redirect '/finalreview?ran=' + ran
+end
+
+
+post '/delete' do
+	dele = deletefunction(session[:sphonenumber])	
+	#p "#{dele}"
+	redirect '/finalreview?dele=' + dele
+end
+
+
+get '/finalreview' do
+	ran = params[:ran]
+	dele = params[:dele]
+	datafromtable = getputoftable()
+
+	erb :finalreview, locals:{ran:ran, dele:dele, datafromtable:datafromtable}
 end	

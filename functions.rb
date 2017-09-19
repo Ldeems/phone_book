@@ -2,7 +2,7 @@ require 'sinatra'
 require 'pg'
 require_relative 'functions.rb'
 enable :sessions
-load './local_env.rb' if File.exist?('./local_env.rb')
+load './mycreds.rb' if File.exist?('./mycreds.rb')
 
 db_params = {
 	host: ENV['host'],
@@ -79,10 +79,52 @@ answer = ""
 check = db.exec("SELECT * FROM phonebook WHERE phonenumber = '#{num}'")
 
     if check.num_tuples.zero? == false
-        answer = "we have that number #{check.values}"
+        answer = check.values
     else
         answer = "seems we do not have that number"
         
     end
     answer
+end	
+
+
+
+def updatefunction(old,arr)
+
+db_params = {
+	host: ENV['host'],
+	port: ENV['port'],
+	dbname: ENV['dbname'],
+	user: ENV['user'],
+	password: ENV['password']
+}
+
+db= PG::Connection.new(db_params)
+
+ 
+   
+    db.exec("UPDATE phonebook SET firstname = '#{arr[0]}',lastname = '#{arr[1]}',address = '#{arr[2]}',city = '#{arr[3]}',state = '#{arr[4]}',zipcode = '#{arr[5]}',phonenumber = '#{arr[6]}'WHERE phonenumber = '#{old}'")
+        
+p "Your information has been updated"      
+end
+
+
+
+
+def deletefunction(del)
+
+db_params = {
+	host: ENV['host'],
+	port: ENV['port'],
+	dbname: ENV['dbname'],
+	user: ENV['user'],
+	password: ENV['password']
+}
+
+db= PG::Connection.new(db_params)
+
+
+        db.exec("DELETE FROM phonebook WHERE phonenumber = '#{del}'")
+    
+p "The information has been deleted"
 end	

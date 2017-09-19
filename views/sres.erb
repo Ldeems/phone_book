@@ -1,1 +1,32 @@
 <%=found%>
+
+<br><br>
+<br><br>
+<form method="post" action="goback">
+	<input type="submit" name="home" value="home">
+</form>
+
+
+<br><br>
+<br><br>
+<br><br>
+
+if you would like to update this info do so here
+<form method="post" action="update">
+	<input type="text" name="new[]"  placeholder="first name" required><br>
+	<input type="text" name="new[]"  placeholder="last name" required><br>
+	<input type="text" name="new[]"  placeholder="address" required><br>
+	<input type="text" name="new[]"  placeholder="city" required><br>
+	<input type="text" name="new[]"  placeholder="state" required><br>
+	<input type="text" name="new[]"  placeholder="zip code" required><br>
+	<input type="text" name="new[]"  placeholder="phone number" required><br>
+	
+	<input type="submit" name="enter">
+</form>
+<br><br>
+<br><br>
+<br><br>
+click here to delete this information
+<form method="post" action="delete">
+	<input type="submit" name="enter" value="delete">
+</form>
