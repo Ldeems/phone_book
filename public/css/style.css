@@ -1,0 +1,13 @@
+body{
+	text-align: center;
+	background-image: url('/image/skycastle.jpg');
+	background-size: 100% 100%;
+	font-size: 4vh;
+}
+
+#headerdiv{
+	font-weight: bold;
+	border-style: groove;
+	border-color: darkgreen;
+	font-size: 8vh;
+}
