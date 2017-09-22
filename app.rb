@@ -14,8 +14,32 @@ db_params = {
 
 db= PG::Connection.new(db_params)
 
+
 get '/' do
-	erb :getinfo
+	message = params[:message]
+		if message == nil
+			message = "PLease log in"
+		else
+				
+		end	
+	erb :login, locals:{message:message}
+end
+
+post '/checklog' do
+	user = params[:username]
+	pass = params[:password]
+	message = checklogin(user,pass)
+		if message == "successful login"
+			redirect '/getinfo?message=' + message
+		else
+			redirect '/?message=' + message
+		end		
+end	
+
+
+get '/getinfo' do
+	message = params[:message]
+	erb :getinfo, locals:{message:message}
 end
 
 post '/outinfo' do

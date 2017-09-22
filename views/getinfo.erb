@@ -1,15 +1,16 @@
+<%=message%><br><br>
 Howdy, would you please input you information below to have it added to the database.
 <br>
 <br>
 
 <form method="post" action="outinfo">
-	<input type="text" name="firstname"  placeholder="first name" required><br>
-	<input type="text" name="lastname"  placeholder="last name" required><br>
-	<input type="text" name="address"  placeholder="address" required><br>
-	<input type="text" name="city"  placeholder="city" required><br>
-	<input type="text" name="state"  placeholder="state" required><br>
-	<input type="text" name="zipcode"  placeholder="zip code" required><br>
-	<input type="text" name="phonenumber"  placeholder="phone number" required><br>
+	<input type="text" name="firstname"  placeholder="first name" minlength="1" maxlength="20" required><br>
+	<input type="text" name="lastname"  placeholder="last name" minlength="1" maxlength="20" required><br>
+	<input type="text" name="address"  placeholder="address" minlength="1" maxlength="30" required><br>
+	<input type="text" name="city"  placeholder="city" minlength="1" maxlength="20" required><br>
+	<input type="text" name="state"  placeholder="state" minlength="1" maxlength="20" required><br>
+	<input type="text" name="zipcode"  placeholder="zip code" minlength="1" maxlength="20" required><br>
+	<input type="text" name="phonenumber"  placeholder="phone number" minlength="1" maxlength="20" required><br>
 	<input type="submit" name="enter">
 </form>
 

@@ -1,6 +1,5 @@
-require 'sinatra'
+
 require 'pg'
-require_relative 'functions.rb'
 enable :sessions
 load './mycreds.rb' if File.exist?('./mycreds.rb')
 
@@ -128,3 +127,63 @@ db= PG::Connection.new(db_params)
     
 p "The information has been deleted"
 end	
+
+
+
+
+def checklogin(user,pass)
+
+db_params = {
+	host: ENV['host'],
+	port: ENV['port'],
+	dbname: ENV['dbname'],
+	user: ENV['user'],
+	password: ENV['password']
+}
+
+db= PG::Connection.new(db_params)
+
+	checkuser = db.exec("SELECT * FROM pblogin WHERE username = '#{user}'")
+
+	if checkuser.num_tuples.zero? == false
+        checkpass = db.exec("SELECT * FROM pblogin WHERE answer = '#{pass}'")
+        if checkpass.num_tuples.zero? == false
+        	message = "successful login"
+        else
+			message = "failed login"
+		end	
+    else
+       message = "failed login"
+    end
+    message
+end  
+
+
+def putinloginpb(user,pass)
+
+db_params = {
+	host: ENV['host'],
+	port: ENV['port'],
+	dbname: ENV['dbname'],
+	user: ENV['user'],
+	password: ENV['password']
+}
+
+db = PG::Connection.new(db_params)	
+
+
+answer = ""
+check = db.exec("SELECT * FROM pblogin WHERE username = '#{user}'")
+
+    if check.num_tuples.zero? == false
+        answer = "Your Number is already being used"
+    else
+        answer = "you joined this phone book"
+        db.exec("insert into pblogin(username,answer)VALUES('#{user}','#{pass}')")
+    end
+    answer
+
+end
+
+
+    
