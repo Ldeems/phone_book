@@ -1,6 +1,8 @@
 
 require 'pg'
-enable :sessions
+require "bcrypt"
+
+
 load './mycreds.rb' if File.exist?('./mycreds.rb')
 
 db_params = {
@@ -146,8 +148,9 @@ db= PG::Connection.new(db_params)
 	checkuser = db.exec("SELECT * FROM pblogin WHERE username = '#{user}'")
 
 	if checkuser.num_tuples.zero? == false
-        checkpass = db.exec("SELECT * FROM pblogin WHERE answer = '#{pass}'")
-        if checkpass.num_tuples.zero? == false
+		cp = checkuser.values.flatten
+        checkpass = BCrypt::Password.new(cp[1])
+        if checkpass == pass
         	message = "successful login"
         else
 			message = "failed login"
@@ -171,7 +174,9 @@ db_params = {
 
 db = PG::Connection.new(db_params)	
 
-
+ 
+ passbc = BCrypt::Password.create "#{pass}"
+     
 answer = ""
 check = db.exec("SELECT * FROM pblogin WHERE username = '#{user}'")
 
@@ -179,11 +184,17 @@ check = db.exec("SELECT * FROM pblogin WHERE username = '#{user}'")
         answer = "Your Number is already being used"
     else
         answer = "you joined this phone book"
-        db.exec("insert into pblogin(username,answer)VALUES('#{user}','#{pass}')")
+        db.exec("insert into pblogin(username,answer)VALUES('#{user}','#{passbc}')")
     end
     answer
 
 end
+
+#putinloginpb("ruke","rukespass")
+# BCrypt::Password.new(check_val[1])
+
+# pass_b = BCrypt::Password.create "#{pass}"
+#     db.exec("insert into creds_table(username,pass)VALUES('#{user}','#{pass_b}')")
 
 
     
